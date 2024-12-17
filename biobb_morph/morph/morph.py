@@ -69,7 +69,6 @@ class Morph(BiobbObject):
         properties = properties or {}
 
         # 2.0 Call parent class constructor
-        print (properties)
         super().__init__(properties)
         self.locals_var_dict = locals().copy()
 
@@ -93,9 +92,9 @@ class Morph(BiobbObject):
         self.fusion = properties.get("fusion", 1)
         self.surfRegCEP = properties.get("surfRegCEP", 1)
         self.checkHaus = properties.get("checkHaus", 1)
-        self.regCEP = properties.get("CEP", 0)
-        self.lambdaBetaFile = properties.get("lambdaBeta", "lambdaBeta.csv")
-        self.CreateTZ = properties.get("TZ", 1)
+        self.CEP = properties.get("CEP", 0)
+        self.lambdaBeta = properties.get("lambdaBeta", "lambdaBeta.csv")
+        self.TZ = properties.get("TZ", 1)
         self.movement = properties.get("movement", [0, 0, 0.05])
         self.nodeDistance = properties.get("nodeDistance", 0.3)
         self.moveTo = properties.get("moveTo", [0.0, 24.1397991, 2.94929004])
@@ -149,14 +148,14 @@ class Morph(BiobbObject):
             self.surfRegCEP,
             self.checkFElem,
             self.checkHaus,
-            self.regCEP,
+            self.CEP,
             self.nodeDistance,
             self.moveTo,
             self.movement,
             self.plane,
             self.reduce_param,
-            self.CreateTZ,
-            self.lambdaBetaFile,
+            self.TZ,
+            self.lambdaBeta,
             self.bcpdCommand,
             self.abaqusCommand
         ]

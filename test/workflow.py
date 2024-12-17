@@ -44,7 +44,7 @@ def main(config, system=None):
     
     
     input_file_path1 = global_paths["step1_morphing"]["input_file_path1"]
-    global_log.info("step1_morphing: input {}".format(global_paths["step1_morphing"]))
+    #global_log.info("step1_morphing: input {}".format(global_paths["step1_morphing"]))
 
     global_log.info("step1_morphing: Running 3D Meshes")
     morphing(**global_paths["step1_morphing"], properties=global_prop["step1_morphing"])

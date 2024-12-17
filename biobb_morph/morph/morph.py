@@ -82,25 +82,25 @@ class Morph(BiobbObject):
         # Properties
 
         self.files = self.io_dict['in']['input_file_path1']
-        self.morph = properties.get("m", 5)
-        self.toINP = properties.get("i", 4)
-        self.abaqusCommand = properties.get("a", "gmsh")
-        self.bcpdCommand = properties.get("b", "bcpd")
-        self.checkFElem = properties.get('e', 2)
-        self.rigid = properties.get('r', 1)
-        self.WCEP = properties.get('w', 0)
-        self.interpo = properties.get('y', 1)
-        self.fusion = properties.get('f', 1)
-        self.surfRegCEP = properties.get('c', 1)
-        self.checkHaus = properties.get('d', 1)
+        self.morph = properties.get("morph", 5)
+        self.toINP = properties.get("toINP", 4)
+        self.abaqusCommand = properties.get("abaqusCommand", "gmsh")
+        self.bcpdCommand = properties.get("bcpdCommand", "bcpd")
+        self.checkFElem = properties.get("checkFElem", 2)
+        self.rigid = properties.get("rigid", 1)
+        self.WCEP = properties.get("WCEP", 0)
+        self.interpo = properties.get("interpo", 1)
+        self.fusion = properties.get("fusion", 1)
+        self.surfRegCEP = properties.get("surfRegCEP", 1)
+        self.checkHaus = properties.get("checkHaus", 1)
         self.regCEP = properties.get("CEP", 0)
         self.lambdaBetaFile = properties.get("lambdaBeta", "lambdaBeta.csv")
         self.CreateTZ = properties.get("TZ", 1)
-        self.movement = properties.get("v", [0, 0, 0.05])
-        self.nodeDistance = properties.get("n", 0.3)
-        self.moveTo = properties.get("t", [0.0, 24.1397991, 2.94929004])
-        self.plane = properties.get("p", [1, 1, 0])
-        self.reduce_param = properties.get("s", 0.8)
+        self.movement = properties.get("movement", [0, 0, 0.05])
+        self.nodeDistance = properties.get("nodeDistance", 0.3)
+        self.moveTo = properties.get("moveTo", [0.0, 24.1397991, 2.94929004])
+        self.plane = properties.get("plane", [1, 1, 0])
+        self.reduce_param = properties.get("reduce_param", 0.8)
         self.properties = properties
 
         # Check the properties
@@ -209,117 +209,136 @@ def main():
         default="models/IVD_L1L2_NC0031.txt",
     )
     parser.add_argument(
-        "-m",
+        "-morph",
         metavar="",
-        help="Non-Rigid registration 1: AF; 2: NP; 3: NoBEP; 4: CEPmorph; 5: All; 0: NONE",
+        help="Non-Rigid registration mode. Options: 1: AF, 2: NP, 3: NoBEP, 4: CEPmorph, 5: All, 0: NONE",
         type=int,
         default=5,
     )
     parser.add_argument(
-        "-i",
+        "-toINP",
         metavar="",
-        help="Create the .inp file of 1: AF; 2: NP; 3: NoBEP; 4: All; 0: NONE",
+        help="Create the .inp file for specific components. Options: 1: AF, 2: NP, 3: NoBEP, 4: All, 0: NONE",
         type=int,
         default=4,
     )
     parser.add_argument(
-        "-a", metavar="", help="Command used to call ABAQUS. if -a: 'gmsh', Gmsh tool is used", type=str, default="abaqus"
-    )
-    parser.add_argument(
-        "-b", metavar="", help="Command used to call BCPD++", type=str, default="bcpd"
-    )
-    parser.add_argument(
-        "-e",
+        "-abaqusCommand",
         metavar="",
-        help="Check failed elements of the resulting .inp file (Abaqus is required)? 1:YES; 2:Iterate value of lambda 0:NO",
+        help="Command used to call ABAQUS. If '-a gmsh', the Gmsh tool is used.",
+        type=str,
+        default="abaqus",
+    )
+    parser.add_argument(
+        "-bcpdCommand",
+        metavar="",
+        help="Command used to call BCPD++",
+        type=str,
+        default="bcpd",
+    )
+    parser.add_argument(
+        "-checkFElem",
+        metavar="",
+        help="Check failed elements of the resulting .inp file (Abaqus required). Options: 1: YES, 2: Iterate value of lambda, 0: NO",
         type=int,
         default=2,
     )
     parser.add_argument(
-        "-r",
+        "-rigid",
         metavar="",
-        help="Rigid registration at the begining of the process? 1: YES; 0: NO",
+        help="Perform rigid registration at the beginning of the process. Options: 1: YES, 0: NO",
         type=int,
         default=1,
     )
     parser.add_argument(
-        "-w", metavar="", help="Morph with CEP? 1: YES; 0: NO", type=int, default=0
-    )
-    parser.add_argument(
-        "-y", metavar="", help="Use interpolated files? 1: YES; 0: NO", type=int, default=1
-    )
-    parser.add_argument(
-        "-f",
+        "-WCEP",
         metavar="",
-        help="Fusion the AF and NP for the final morph? 1: YES; 0: NO",
+        help="Perform morphing with CEP. Options: 1: YES, 0: NO",
+        type=int,
+        default=0,
+    )
+    parser.add_argument(
+        "-interpo",
+        metavar="",
+        help="Use interpolated files. Options: 1: YES, 0: NO",
         type=int,
         default=1,
     )
     parser.add_argument(
-        "-c",
+        "-fusion",
         metavar="",
-        help="Morphing the external surfaces of AF and NP (including CEP)? 1: YES; 0: NO",
+        help="Fuse the AF and NP for the final morph. Options: 1: YES, 0: NO",
         type=int,
         default=1,
     )
     parser.add_argument(
-        "-d",
+        "-surfRegCEP",
         metavar="",
-        help="Check Hausdorff distance between 3D grids (Euclidean distance)? 1: YES; 0: NO",
+        help="Morph external surfaces of AF and NP (including CEP). Options: 1: YES, 0: NO",
+        type=int,
+        default=1,
+    )
+    parser.add_argument(
+        "-checkHaus",
+        metavar="",
+        help="Check Hausdorff distance between 3D grids (Euclidean distance). Options: 1: YES, 0: NO",
         type=int,
         default=1,
     )
     parser.add_argument(
         "--CEP",
         metavar="",
-        help="non-rigid registration of the CEP? 1: YES; 0: NO",
+        help="Perform non-rigid registration of the CEP. Options: 1: YES, 0: NO",
         type=int,
         default=0,
     )
     parser.add_argument(
         "--lambdaBeta",
         metavar="",
-        help="text file with the alpha and betha values for the non-rigid registration",
+        help="Text file with the alpha and beta values for non-rigid registration",
         type=str,
         default="lambdaBeta.csv",
     )
-    # values for the transition zone
     parser.add_argument(
         "--TZ",
         metavar="",
-        help="Create Transition Zone? 1: YES; 0: NO",
+        help="Create a Transition Zone. Options: 1: YES, 0: NO",
         type=int,
         default=1,
     )
     parser.add_argument(
-        "-v",
+        "-movement",
         nargs="+",
         type=float,
-        help="Enter a list of integers separated by spaces to represent the desire movement, +: for positive direction, -: for negative direction, 0: for no movement",
+        help="Enter a list of floats separated by spaces to represent desired movement. Positive: positive direction, Negative: negative direction, 0: no movement",
         default=[0, 0, 0.05],
     )
     parser.add_argument(
-        "-n",
+        "-nodeDistance",
+        metavar="",
         help="Distance between two nodes of the mesh",
         type=float,
         default=0.3,
     )
     parser.add_argument(
-        "-t",
+        "-moveTo",
         nargs="+",
+        metavar="",
         help="Translation of the AF and NP",
         type=float,
         default=[0.0, 24.1397991, 2.94929004],
     )
     parser.add_argument(
-        "-p",
+        "-plane",
         nargs="+",
-        help="Plane to ortogonaly project the nodes of the NP to create the spline line of the perimeter",
+        metavar="",
+        help="Plane to orthogonally project the nodes of the NP to create the spline line of the perimeter",
         type=int,
         default=[1, 1, 0],
     )
     parser.add_argument(
-        "-s",
+        "-reduce_param",
+        metavar="",
         help="Parameter to reduce the size of the contour of the NP",
         type=float,
         default=0.8,

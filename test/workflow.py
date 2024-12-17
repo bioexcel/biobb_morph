@@ -37,23 +37,17 @@ def prep_output(destination, source):
 
 def main(config, system=None):
     start_time= time.time()
-    #conf = settings.ConfReader(args.config_path)
-    #print (conf)
-    #global_log, _ = fu.get_logs(path=conf.get_working_dir_path(), light_format=True)
-    #global_prop = conf.get_prop_dic(global_log=global_log)
-    #global_paths = conf.get_paths_dic()
     conf = settings.ConfReader(config, system)
     global_log, _ = fu.get_logs(path=conf.get_working_dir_path(), light_format=True)
     global_prop = conf.get_prop_dic(global_log=global_log)
     global_paths = conf.get_paths_dic()
     
-    #global_log.info("step1_morphing: paths and prop {} ".format(global_prop["step1_morphing"]))
     
     input_file_path1 = global_paths["step1_morphing"]["input_file_path1"]
     global_log.info("step1_morphing: input {}".format(global_paths["step1_morphing"]))
 
     global_log.info("step1_morphing: Running 3D Meshes")
-    morph.morphing(**global_paths["step1_morphing"], properties=global_prop["step1_morphing"])
+    morphing(**global_paths["step1_morphing"], properties=global_prop["step1_morphing"])
 
     elapsed_time = time.time() - start_time
     global_log.info('')

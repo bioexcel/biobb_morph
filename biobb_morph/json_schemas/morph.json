@@ -1,0 +1,195 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_morph/json_schemas/1.0/morph",
+    "name": "biobb_morph Morph",
+    "title": "Morph code for production of 3DSpine meshes, from a template IVD mesh to a target, patient-personalized model.",
+    "description": "",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "Abaqus, Gmsh, BCPD++",
+            "version": ">=3.0",
+            "license": "BSD 3-Clause"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_file_path1",
+        "input_file_path2",
+        "output_file_path"
+    ],
+    "properties": {
+        "input_file_path1": {
+            "type": "string",
+            "description": "Txt file with info about source and target model. Supported formats: txt.",
+            "filetype": "input",
+            "sample": "https://urlto.sample",
+            "enum": [
+                ".*\\.txt$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.txt$",
+                    "description": "Txt file with info about source and target model.",
+                    "edam": "format_3762"
+                }
+            ]
+        },
+        "input_file_path2": {
+            "type": "string",
+            "description": "Path for template mesh IVD. Type: path.",
+            "filetype": "input",
+            "sample": "https://urlto.sample",
+            "enum": [
+                ".*\\$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\$",
+                    "description": "Path for template mesh IVD.",
+                    "edam": "format_3762"
+                }
+            ]
+        },
+        "output_file_path": {
+            "type": "string",
+            "description": "Output file path, for resulting template meshes for IVD. Type: path",
+            "filetype": "output",
+            "sample": "https://urlto.sample",
+            "enum": [
+                ".*\\$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\$",
+                    "description": "Output file path.",
+                    "edam": "format_3987"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "morph": {
+                    "type": "integer",
+                    "enum": [0, 1, 2, 3, 4, 5],
+                    "default": 5,
+                    "description": "Non-Rigid registration mode. Options: AF, NP, NoBEP, CEPmorph, All, NONE."
+                },
+                "toINP": {
+                    "type": "integer",
+                    "enum": [0, 1, 2, 3, 4],
+                    "default": 4,
+                    "description": "Create the .inp file for specific components. Options: AF, NP, NoBEP, All, NONE."
+                },
+                "abaqusCommand": {
+                    "type": "string",
+                    "default": "abaqus",
+                    "description": "Command used to call ABAQUS. If '-a gmsh', the Gmsh tool is used."
+                },
+                "bcpdCommand": {
+                    "type": "string",
+                    "default": "bcpd",
+                    "description": "Command used to call BCPD++."
+                },
+                "checkFElem": {
+                    "type": "integer",
+                    "enum": [0, 1, 2],
+                    "default": 2,
+                    "description": "Check failed elements of the resulting .inp file (Abaqus required). Options: YES, Iterate value of lambda, NO."
+                },
+                "rigid": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 1,
+                    "description": "Perform rigid registration at the beginning of the process. Options: YES, NO."
+                },
+                "WCEP": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 0,
+                    "description": "Perform morphing with CEP. Options: YES, NO."
+                },
+                "interpo": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 1,
+                    "description": "Use interpolated files. Options: YES, NO."
+                },
+                "fusion": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 1,
+                    "description": "Fuse the AF and NP for the final morph. Options: YES, NO."
+                },
+                "surfRegCEP": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 1,
+                    "description": "Morph external surfaces of AF and NP (including CEP). Options: YES, NO."
+                },
+                "checkHaus": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 1,
+                    "description": "Check Hausdorff distance between 3D grids (Euclidean distance). Options: YES, NO."
+                },
+                "CEP": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": 0,
+                    "description": "Perform non-rigid registration of the CEP. Options: YES, NO."
+                },
+                "lambdaBeta": {
+                    "type": "string",
+                    "default": "lambdaBeta.csv",
+                    "description": "Text file with the alpha and beta values for non-rigid registration."
+                },
+                "TZ": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "default": null,
+                    "description": "Create a Transition Zone. Options: YES, NO."
+                },
+                "movement": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "default": [0, 0, 0.05],
+                    "description": "Enter a list of floats separated by spaces to represent desired movement. Positive: Positive direction, Negative: Negative direction, 0: No movement."
+                },
+                "nodeDistance": {
+                    "type": "number",
+                    "default": 0.3,
+                    "description": "Distance between two nodes of the mesh."
+                },
+                "moveTo": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "default": [0.0, 24.1397991, 2.94929004],
+                    "description": "Translation of the AF and NP."
+                },
+                "plane": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "default": [1, 1, 0],
+                    "description": "Plane to orthogonally project nodes of the NP to create the spline line of the perimeter."
+                },
+                "reduce_param": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Parameter to reduce the size of the contour of the NP."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

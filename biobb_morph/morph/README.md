@@ -13,7 +13,7 @@ The `Morph` class accepts the following parameters:
 - **output_file_path** (str): Path for the resulting template meshes for IVD. File type: output.
 
 ### Properties
-- **-m** (int): Non-Rigid registration mode. Options:
+- **-morph** (int): Non-Rigid registration mode. Options:
   * 1: AF
   * 2: NP
   * 3: NoBEP
@@ -22,7 +22,7 @@ The `Morph` class accepts the following parameters:
   * 0: NONE
   * Default: 5.
 
-- **-i** (int): Create the .inp file for specific components. Options:
+- **-toINP** (int): Create the .inp file for specific components. Options:
   * 1: AF
   * 2: NP
   * 3: NoBEP
@@ -30,40 +30,40 @@ The `Morph` class accepts the following parameters:
   * 0: NONE
   * Default: 4.
 
-- **-a** (str): Command used to call ABAQUS. If "-a gmsh", the Gmsh tool is used. Default: "abaqus".
-- **-b** (str): Command used to call BCPD++. Default: "bcpd".
-- **-e** (int): Check failed elements of the resulting .inp file (Abaqus required). Options:
+- **-abaqusCommand** (str): Command used to call ABAQUS. If "-a gmsh", the Gmsh tool is used. Default: "abaqus".
+- **-bcpdCommand** (str): Command used to call BCPD++. Default: "bcpd".
+- **-checkFElem** (int): Check failed elements of the resulting .inp file (Abaqus required). Options:
   * 1: YES
   * 2: Iterate value of lambda
   * 0: NO
   * Default: 2.
 
-- **-r** (int): Perform rigid registration at the beginning of the process. Options:
+- **-rigid** (int): Perform rigid registration at the beginning of the process. Options:
   * 1: YES
   * 0: NO
   * Default: 1.
 
-- **-w** (int): Perform morphing with CEP. Options:
+- **-WCEP** (int): Perform morphing with CEP. Options:
   * 1: YES
   * 0: NO
   * Default: 0.
 
-- **-y** (int): Use interpolated files. Options:
+- **-interpo** (int): Use interpolated files. Options:
   * 1: YES
   * 0: NO
   * Default: 1.
 
-- **-f** (int): Fuse the AF and NP for the final morph. Options:
+- **-fusion** (int): Fuse the AF and NP for the final morph. Options:
   * 1: YES
   * 0: NO
   * Default: 1.
 
-- **-c** (int): Morph external surfaces of AF and NP (including CEP). Options:
+- **-surfRegCEP** (int): Morph external surfaces of AF and NP (including CEP). Options:
   * 1: YES
   * 0: NO
   * Default: 1.
 
-- **-d** (int): Check Hausdorff distance between 3D grids (Euclidean distance). Options:
+- **-checkHaus** (int): Check Hausdorff distance between 3D grids (Euclidean distance). Options:
   * 1: YES
   * 0: NO
   * Default: 1.
@@ -80,19 +80,19 @@ The `Morph` class accepts the following parameters:
   * 0: NO
   * Default: None.
 
-- **-v** (list of float): Enter a list of floats separated by spaces to represent desired movement.
+- **-movement** (list of float): Enter a list of floats separated by spaces to represent desired movement.
   * Positive: Positive direction
   * Negative: Negative direction
   * 0: No movement
   * Default: [0, 0, 0.05].
 
-- **-n** (float): Distance between two nodes of the mesh. Default: 0.3.
+- **-nodeDistance** (float): Distance between two nodes of the mesh. Default: 0.3.
 
-- **-t** (list of float): Translation of the AF and NP. Default: [0.0, 24.1397991, 2.94929004].
+- **-moveTo** (list of float): Translation of the AF and NP. Default: [0.0, 24.1397991, 2.94929004].
 
-- **-p** (list of int): Plane to orthogonally project nodes of the NP to create the spline line of the perimeter. Default: [1, 1, 0].
+- **-plane** (list of int): Plane to orthogonally project nodes of the NP to create the spline line of the perimeter. Default: [1, 1, 0].
 
-- **-s** (float): Parameter to reduce the size of the contour of the NP. Default: 0.8.
+- **-reduce_param** (float): Parameter to reduce the size of the contour of the NP. Default: 0.8.
 
 ## Usage Example
 This is an example of how to use the `Morph` class in Python:

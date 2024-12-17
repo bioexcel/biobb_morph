@@ -109,9 +109,9 @@ Here is a Python code snippet demonstrating how to use the Biobb_morph package:
 from biobb_morph.morph.morph import morphing
 
 properties = {
-    'm': 1,
-    'a': 'gmsh',
-    'b': 'bcpd'
+    'morph': 1,
+    'abaqusCommand': 'gmsh',
+    'bcpdCommand': 'bcpd'
 }
 morphing(
     input_file_path1='models/IVD_L1L2_NC0031.txt',

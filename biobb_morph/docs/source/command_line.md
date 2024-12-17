@@ -127,88 +127,114 @@ biobb_morph -h
 `parameter (datatype) - (default_value): Definition`
 
 ### Parameters:
-- **m (int) - 5:**  
-  Non-Rigid registration mode.  
 
-- **i (int) - 4:**  
-  Create the `.inp` file for specific components.  
+- **-morph** (int): Non-Rigid registration mode. Options:
+  * 1: AF
+  * 2: NP
+  * 3: NoBEP
+  * 4: CEPmorph
+  * 5: All
+  * 0: NONE
+  * Default: 5.
 
-- **a (string) - "abaqus":**  
-  Command to call ABAQUS or Gmsh.  
+- **-toINP** (int): Create the .inp file for specific components. Options:
+  * 1: AF
+  * 2: NP
+  * 3: NoBEP
+  * 4: All
+  * 0: NONE
+  * Default: 4.
 
-- **b (string) - "bcpd":**  
-  Command to call BCPD++.  
+- **-abaqusCommand** (str): Command used to call ABAQUS. If "-a gmsh", the Gmsh tool is used. Default: "abaqus".
+- **-bcpdCommand** (str): Command used to call BCPD++. Default: "bcpd".
+- **-checkFElem** (int): Check failed elements of the resulting .inp file (Abaqus required). Options:
+  * 1: YES
+  * 2: Iterate value of lambda
+  * 0: NO
+  * Default: 2.
 
-- **e (int) - 2:**  
-  Check failed elements in the resulting `.inp` file.  
+- **-rigid** (int): Perform rigid registration at the beginning of the process. Options:
+  * 1: YES
+  * 0: NO
+  * Default: 1.
 
-- **r (int) - 1:**  
-  Perform rigid registration initially.  
+- **-WCEP** (int): Perform morphing with CEP. Options:
+  * 1: YES
+  * 0: NO
+  * Default: 0.
 
-- **w (int) - 0:**  
-  Morphing with CEP.  
+- **-interpo** (int): Use interpolated files. Options:
+  * 1: YES
+  * 0: NO
+  * Default: 1.
 
-- **y (int) - 1:**  
-  Use interpolated files.  
+- **-fusion** (int): Fuse the AF and NP for the final morph. Options:
+  * 1: YES
+  * 0: NO
+  * Default: 1.
 
-- **f (int) - 1:**  
-  Fuse AF and NP for the final morph.  
+- **-surfRegCEP** (int): Morph external surfaces of AF and NP (including CEP). Options:
+  * 1: YES
+  * 0: NO
+  * Default: 1.
 
-- **c (int) - 1:**  
-  Morph external surfaces of AF, NP (including CEP).  
+- **-checkHaus** (int): Check Hausdorff distance between 3D grids (Euclidean distance). Options:
+  * 1: YES
+  * 0: NO
+  * Default: 1.
 
-- **d (int) - 1:**  
-  Check Hausdorff distance between 3D grids.  
+- **--CEP** (int): Perform non-rigid registration of the CEP. Options:
+  * 1: YES
+  * 0: NO
+  * Default: 0.
 
-- **CEP (int) - 0:**  
-  Perform non-rigid registration of CEP.  
+- **--lambdaBeta** (str): Text file with the alpha and beta values for non-rigid registration. Default: "lambdaBeta.csv".
 
-- **lambdaBeta (string) - "lambdaBeta.csv":**  
-  File with alpha, beta values.  
+- **--TZ** (int): Create a Transition Zone. Options:
+  * 1: YES
+  * 0: NO
+  * Default: None.
 
-- **TZ (int) - None:**  
-  Create Transition Zone.  
+- **-movement** (list of float): Enter a list of floats separated by spaces to represent desired movement.
+  * Positive: Positive direction
+  * Negative: Negative direction
+  * 0: No movement
+  * Default: [0, 0, 0.05].
 
-- **v (list[float]) - [0, 0, 0.05]:**  
-  Desired movement list.  
+- **-nodeDistance** (float): Distance between two nodes of the mesh. Default: 0.3.
 
-- **n (float) - 0.3:**  
-  Distance between two nodes of the mesh.  
+- **-moveTo** (list of float): Translation of the AF and NP. Default: [0.0, 24.1397991, 2.94929004].
 
-- **t (list[float]) - [0.0, 24.1397991, 2.94929004]:**  
-  Translation of AF, NP.  
+- **-plane** (list of int): Plane to orthogonally project nodes of the NP to create the spline line of the perimeter. Default: [1, 1, 0].
 
-- **p (list[int]) - [1, 1, 0]:**  
-  Plane for NP spline perimeter.  
+- **-reduce_param** (float): Parameter to reduce the size of the contour of the NP. Default: 0.8.
 
-- **s (float) - 0.8:**  
-  Reduce NP contour size.  
 
 ### YAML
 #### [Common config file](https://github.com/bioexcel/biobb_morph/blob/master/biobb_morph/test/data/config/config_morph.yml)
 ```python
 properties:
-    m: 5
-    i: 4
-    a: 'abaqus'
-    b: 'bcpd'
-    e: 2
-    r: 1
-    w: 0
-    y: 1
-    f: 1
-    c: 1
-    d: 1
+    morph: 5
+    toINP: 4
+    abaqusCommand: 'abaqus'
+    bcpdCommand: 'bcpd'
+    checkFElem: 2
+    rigid: 1
+    WCEP: 0
+    interpo: 1
+    fusion: 1
+    surfRegCEP: 1
+    checkHaus: 1
     CEP: 0
     lambdaBeta: 'lambdaBeta.csv'
     TZ: 1
-    v: [0, 0, 0.04]
-    n: 0.4
-    t: [0.0, 24.1397991, 2.94929004]
-    p: [1, 1, 0]
-    s: 0.8
+    movement: [0, 0, 0.04]
+    nodeDistance: 0.4
+    moveTo: [0.0, 24.1397991, 2.94929004]
+    plane: [1, 1, 0]
+    reduce_param: 0.8
 ```
 #### Command line
 ```python
-morph --fileIn models/IVD_L1L2_NC0031.txt -m 1 -i 4 -a abaqus -b bcpd --CEP 1 -d 1 --lambdaBeta lambdaBeta.csv --TZ 1
+morph --fileIn models/IVD_L1L2_NC0031.txt -morph 5 -toINP 4 -a abaqus -b bcpd --CEP 0 -d 1 --lambdaBeta lambdaBeta.csv --TZ 1 -movement 0 0 0.04 -nodeDistance 0.4 -moveTo 0.0 24.1397991 2.94929004 -plane 1 1 0 -reduce_param 0.8
 ```

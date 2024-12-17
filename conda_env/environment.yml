@@ -1,4 +1,4 @@
-name: biobb_template
+name: biobb_morph
 channels:
   - conda-forge
   - bioconda
@@ -6,6 +6,6 @@ dependencies:
   - python
   - biobb_common>=4.1.0
   - nb_conda_kernels
+  - meshio
   - pytest
-  - zip
   - conda

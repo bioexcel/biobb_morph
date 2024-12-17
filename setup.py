@@ -4,11 +4,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="biobb_template",
+    name="biobb_morph",
     version="4.1.0",
     author="Biobb developers",
-    author_email="your@email.com",
-    description="Biobb_template is a complete code template to promote and facilitate the creation of new Biobbs by the community.",
+    author_email="mferri@bsc.es",
+    description="Biobb_Morph is a wrapped version of a Python- and Abaqus-based code for producing patien-specific 3D meshes from IVD template examples.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="Bioinformatics Workflows BioExcel Compatibility",
@@ -17,13 +17,13 @@ setuptools.setup(
         "Documentation": "http://biobb-template.readthedocs.io/en/latest/",
         "Bioexcel": "https://bioexcel.eu/"
     },
-    packages=setuptools.find_packages(exclude=['adapters', 'docs', 'test']),
-    package_data={'biobb_template': ['py.typed']},
+    packages=setuptools.find_packages(exclude=['docs']),
+    package_data={'biobb_morph': ['py.typed']},
     install_requires=['biobb_common==4.1.0'],
     python_requires='>=3.8',
     entry_points={
         "console_scripts": [
-            "template = biobb_template.template.template:main"
+            "template = biobb_morph.biobb_morph.morph:main"
         ]
     },
     classifiers=(

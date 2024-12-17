@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          repository: bioexcel/biobb_template
+          repository: bioexcel/biobb_morph
           path: ./
 
       - name: Download file using wget

@@ -18,6 +18,6 @@ jobs:
         fetch-depth: 0
     - uses: cniethammer/git-repo-sync@main
       with:
-        target-url: 'https://codehub.hlrs.de/coes/bioexcel/biobb/biobb_pytorch.git'
+        target-url: 'https://codehub.hlrs.de/coes/bioexcel/biobb/biobb_morph.git'
         target-username: ${{ secrets.ACCESS_TOKEN_NAME }}
         target-token: ${{ secrets.ACCESS_TOKEN }}

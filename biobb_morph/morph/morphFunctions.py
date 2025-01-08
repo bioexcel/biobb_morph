@@ -28,14 +28,17 @@
 
 # libraries
 from __future__ import print_function
-import os
+
 import csv
-import subprocess
-import numpy as np
-import math
 import itertools
-import meshio
-from statistics import *
+import math
+import os
+import subprocess
+from statistics import mean, median
+
+import meshio  # type: ignore
+import numpy as np
+
 ###
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,25 +47,102 @@ from statistics import *
 # Rigid
 
 
-def defFuncRigid(targetFile, sourceFile, outPutFileName, nLoops, lenTarget, lenSource, bcpdCommand):
-
+def defFuncRigid(
+    targetFile, sourceFile, outPutFileName, nLoops, lenTarget, lenSource, bcpdCommand
+):
     nLoops = str(nLoops)
     lenTarget = str(lenTarget)
     lenSource = str(lenSource)
 
     if int(lenTarget) == int(lenSource):
-        funcBCPD = [bcpdCommand, "-x", targetFile, "-y", sourceFile, "-o", outPutFileName, "-l", "1e9", "-b", "2.0", "-w", "0.1", "-J", "300", "-K", "70",
-                    "-p", "-d", "5", "-e", "0.3", "-f", "0.3", "-g", "3", "-c", "1e-15", "-n", nLoops, "-ux", "-Db," + lenTarget + ",1", "-sY"]
+        funcBCPD = [
+            bcpdCommand,
+            "-x",
+            targetFile,
+            "-y",
+            sourceFile,
+            "-o",
+            outPutFileName,
+            "-l",
+            "1e9",
+            "-b",
+            "2.0",
+            "-w",
+            "0.1",
+            "-J",
+            "300",
+            "-K",
+            "70",
+            "-p",
+            "-d",
+            "5",
+            "-e",
+            "0.3",
+            "-f",
+            "0.3",
+            "-g",
+            "3",
+            "-c",
+            "1e-15",
+            "-n",
+            nLoops,
+            "-ux",
+            "-Db," + lenTarget + ",1",
+            "-sY",
+        ]
     else:
-        funcBCPD = [bcpdCommand, "-x", targetFile, "-y", sourceFile, "-o", outPutFileName, "-l", "1e9", "-b", "2.0", "-w", "0.1", "-J", "300", "-K", "70", "-p", "-d",
-                    "5", "-e", "0.3", "-f", "0.3", "-g", "3", "-c", "1e-15", "-n", nLoops, "-ux", "-Dx," + lenTarget + ",1", "-Dy," + lenSource + ",1", "-sY"]
+        funcBCPD = [
+            bcpdCommand,
+            "-x",
+            targetFile,
+            "-y",
+            sourceFile,
+            "-o",
+            outPutFileName,
+            "-l",
+            "1e9",
+            "-b",
+            "2.0",
+            "-w",
+            "0.1",
+            "-J",
+            "300",
+            "-K",
+            "70",
+            "-p",
+            "-d",
+            "5",
+            "-e",
+            "0.3",
+            "-f",
+            "0.3",
+            "-g",
+            "3",
+            "-c",
+            "1e-15",
+            "-n",
+            nLoops,
+            "-ux",
+            "-Dx," + lenTarget + ",1",
+            "-Dy," + lenSource + ",1",
+            "-sY",
+        ]
 
     return funcBCPD
 
 
 # non-Rigid
-def defFuncNonRigid(targetFile, sourceFile, outPutFileName, lambdaVal, betaVal, nLoops, lenTarget, lenSource, bcpdCommand):
-
+def defFuncNonRigid(
+    targetFile,
+    sourceFile,
+    outPutFileName,
+    lambdaVal,
+    betaVal,
+    nLoops,
+    lenTarget,
+    lenSource,
+    bcpdCommand,
+):
     lambdaVal = str(lambdaVal)
     betaVal = str(betaVal)
     nLoops = str(nLoops)
@@ -70,13 +150,81 @@ def defFuncNonRigid(targetFile, sourceFile, outPutFileName, lambdaVal, betaVal, 
     lenSource = str(lenSource)
 
     if int(lenTarget) == int(lenSource):
-        funcBCPD = [bcpdCommand, "-x", targetFile, "-y", sourceFile, "-o", outPutFileName, "-l", lambdaVal, "-b", betaVal, "-w", "0.0000001", "-J", "300", "-K",
-                    "70", "-p", "-d", "7", "-e", "0.15", "-f", "0.2", "-g", "0.1", "-c", "1e-15", "-n", nLoops, "-uy", "-Db," + lenTarget + ",1", "-sY"]
+        funcBCPD = [
+            bcpdCommand,
+            "-x",
+            targetFile,
+            "-y",
+            sourceFile,
+            "-o",
+            outPutFileName,
+            "-l",
+            lambdaVal,
+            "-b",
+            betaVal,
+            "-w",
+            "0.0000001",
+            "-J",
+            "300",
+            "-K",
+            "70",
+            "-p",
+            "-d",
+            "7",
+            "-e",
+            "0.15",
+            "-f",
+            "0.2",
+            "-g",
+            "0.1",
+            "-c",
+            "1e-15",
+            "-n",
+            nLoops,
+            "-uy",
+            "-Db," + lenTarget + ",1",
+            "-sY",
+        ]
     else:
-        funcBCPD = [bcpdCommand, "-x", targetFile, "-y", sourceFile, "-o", outPutFileName, "-l", lambdaVal, "-b", betaVal, "-w", "0.0000001", "-J", "300", "-K", "70", "-p",
-                    "-d", "7", "-e", "0.15", "-f", "0.2", "-g", "0.1", "-c", "1e-15", "-n", nLoops, "-uy", "-Dx," + lenTarget + ",1", "-Dy," + lenSource + ",1", "-sY"]
+        funcBCPD = [
+            bcpdCommand,
+            "-x",
+            targetFile,
+            "-y",
+            sourceFile,
+            "-o",
+            outPutFileName,
+            "-l",
+            lambdaVal,
+            "-b",
+            betaVal,
+            "-w",
+            "0.0000001",
+            "-J",
+            "300",
+            "-K",
+            "70",
+            "-p",
+            "-d",
+            "7",
+            "-e",
+            "0.15",
+            "-f",
+            "0.2",
+            "-g",
+            "0.1",
+            "-c",
+            "1e-15",
+            "-n",
+            nLoops,
+            "-uy",
+            "-Dx," + lenTarget + ",1",
+            "-Dy," + lenSource + ",1",
+            "-sY",
+        ]
 
     return funcBCPD
+
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # excecuting the BCPD registrations
@@ -85,53 +233,67 @@ def defFuncNonRigid(targetFile, sourceFile, outPutFileName, lambdaVal, betaVal, 
 
 
 def defRigid(nameMorph, numberIVD, patientID, funcRigid, outPutFileName, pathOut):
-    print('-------------------------------------------------------------------------------')
+    print(
+        "-------------------------------------------------------------------------------"
+    )
     print("")
-    print("Rigid registratio of the " + nameMorph +
-          ": " + numberIVD + " " + patientID)
+    print("Rigid registratio of the " + nameMorph + ": " + numberIVD + " " + patientID)
     print("")
-    #print the bcpd function
+    # print the bcpd function
     print(funcRigid)
     print("")
     morphingFunc = subprocess.run(funcRigid)
-    print('-------------------------------------------------------------------------------')
-    print(' ')
-    #moving the temporal file to pathOut folder
-    files = [filename for filename in os.listdir(
-        '.') if filename.startswith(outPutFileName)]
+    print(
+        "-------------------------------------------------------------------------------"
+    )
+    print(" ")
+    # moving the temporal file to pathOut folder
+    files = [
+        filename for filename in os.listdir(".") if filename.startswith(outPutFileName)
+    ]
     for filename in files:
         morphingFunc = subprocess.run(["mv", filename, pathOut])
     print("The rigid files of the " + nameMorph + " were move to: " + pathOut)
-    print('')
+    print("")
+
 
 # non-Rigid
 
 
 def defNonRigid(nameMorph, numberIVD, patientID, funcNonRigid, outPutFileName, pathOut):
-    print('-------------------------------------------------------------------------------')
+    print(
+        "-------------------------------------------------------------------------------"
+    )
     print("")
-    print("Non-Rigid registratio of the " +
-          nameMorph + ": " + numberIVD + " " + patientID)
+    print(
+        "Non-Rigid registratio of the " + nameMorph + ": " + numberIVD + " " + patientID
+    )
     print("")
     print(funcNonRigid)
     print("")
     morphingFunc = subprocess.run(funcNonRigid)
-    print('-------------------------------------------------------------------------------')
-    print(' ')
-    #moving the temporal file to pathOut folder
-    files = [filename for filename in os.listdir(
-        '.') if filename.startswith(outPutFileName)]
+    print(
+        "-------------------------------------------------------------------------------"
+    )
+    print(" ")
+    # moving the temporal file to pathOut folder
+    files = [
+        filename for filename in os.listdir(".") if filename.startswith(outPutFileName)
+    ]
     for filename in files:
         morphingFunc = subprocess.run(["mv", filename, pathOut])
     print("The " + nameMorph + " files were move to: " + pathOut)
-    print('')
+    print("")
+
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # obtaining the coordinates of the node 71143 from the morphed file without indexing
 
 
 def ObtainCentroid(fileIn, pathIn, nodes, index):
-    print('-------------------------------------------------------------------------------')
+    print(
+        "-------------------------------------------------------------------------------"
+    )
     print("Obtaining the coordinates of the node 71143 of the morphed model")
     print("")
 
@@ -140,8 +302,8 @@ def ObtainCentroid(fileIn, pathIn, nodes, index):
 
     nodesCoord = dict()
 
-    with open(os.path.join(pathIn, fileIn), 'r') as f:
-        reader = csv.reader(f, delimiter='\t')
+    with open(os.path.join(pathIn, fileIn), "r") as f:
+        reader = csv.reader(f, delimiter="\t")
         count = 0
         for row in reader:
             nodesCoord[nodes[count]] = row
@@ -157,16 +319,36 @@ def ObtainCentroid(fileIn, pathIn, nodes, index):
 # creating inputs files (.inp)
 
 
-def createInpFile(nameMorph, numberIVD, patientID, fileIn, fileOut, pathIn, pathOut, inpTemplatePath, nodes, stringFormat, coordCentralNode):
-    print('-------------------------------------------------------------------------------')
-    print("Creating " + nameMorph + " model in a .inp file of " +
-          numberIVD + " " + patientID)
+def createInpFile(
+    nameMorph,
+    numberIVD,
+    patientID,
+    fileIn,
+    fileOut,
+    pathIn,
+    pathOut,
+    inpTemplatePath,
+    nodes,
+    stringFormat,
+    coordCentralNode,
+):
+    print(
+        "-------------------------------------------------------------------------------"
+    )
+    print(
+        "Creating "
+        + nameMorph
+        + " model in a .inp file of "
+        + numberIVD
+        + " "
+        + patientID
+    )
     print("")
 
     nodesCoord = dict()
 
-    with open(os.path.join(pathIn, fileIn), 'r') as f:
-        reader = csv.reader(f, delimiter='\t')
+    with open(os.path.join(pathIn, fileIn), "r") as f:
+        reader = csv.reader(f, delimiter="\t")
         count = 0
         for row in reader:
             nodesCoord[nodes[count]] = row
@@ -176,12 +358,15 @@ def createInpFile(nameMorph, numberIVD, patientID, fileIn, fileOut, pathIn, path
     # store the coordinates and the index in the dictionary nodesCoord and rest the value of coordCentralNode
 
     for key, value in nodesCoord.items():
-        nodesCoord[key] = [float(value[0]) - float(coordCentralNode[0]), float(
-            value[1]) - float(coordCentralNode[1]), float(value[2]) - float(coordCentralNode[2])]
+        nodesCoord[key] = [
+            float(value[0]) - float(coordCentralNode[0]),
+            float(value[1]) - float(coordCentralNode[1]),
+            float(value[2]) - float(coordCentralNode[2]),
+        ]
 
     nodesOn3dFileOutPath = os.path.join(pathOut, fileOut)
 
-    with open(nodesOn3dFileOutPath, 'w') as filenodesOn3dOut:
+    with open(nodesOn3dFileOutPath, "w") as filenodesOn3dOut:
         with open(inpTemplatePath) as f:
             lines = f.readlines()
         count = 1
@@ -189,18 +374,30 @@ def createInpFile(nameMorph, numberIVD, patientID, fileIn, fileOut, pathIn, path
             if count == 58:
                 for inode in sorted(nodes):
                     filenodesOn3dOut.write(
-                        stringFormat.format(inode, *nodesCoord[inode]))
+                        stringFormat.format(inode, *nodesCoord[inode])
+                    )
             filenodesOn3dOut.write(line)
             count += 1
     filenodesOn3dOut.close()
+
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Cheking failed elements in the final .inp file
 
 
-def checkFailedElem(outPutFileFailedElem, outPutFileMorphedIVD, pathInp, pathTemplate, numberIVD, patientID, gap, abaqusCommand):
-
-    print('-------------------------------------------------------------------------------')
+def checkFailedElem(
+    outPutFileFailedElem,
+    outPutFileMorphedIVD,
+    pathInp,
+    pathTemplate,
+    numberIVD,
+    patientID,
+    gap,
+    abaqusCommand,
+):
+    print(
+        "-------------------------------------------------------------------------------"
+    )
     print("")
     print("Cheking if there are failed elements in " + numberIVD + " " + patientID)
     print("")
@@ -208,20 +405,22 @@ def checkFailedElem(outPutFileFailedElem, outPutFileMorphedIVD, pathInp, pathTem
     nodesOn3dFileOutPath = os.path.join(cwd, pathInp, outPutFileMorphedIVD)
 
     if abaqusCommand == "gmsh":
-        lenFailedElem = check_zero_volume_elements_Gmesh(nodesOn3dFileOutPath, pathInp, pathTemplate)
+        lenFailedElem = check_zero_volume_elements_Gmesh(
+            nodesOn3dFileOutPath, pathInp, pathTemplate
+        )
 
     else:
         nameDic = list()
         name = outPutFileMorphedIVD.split(".")[0]
         nameDic.append(nodesOn3dFileOutPath)
         nameDic.append(name)
-        nameDicFile = numberIVD + '_' + patientID + '_' + 'nameDicFile.txt'
+        nameDicFile = numberIVD + "_" + patientID + "_" + "nameDicFile.txt"
 
         lenFailedElem = int()
 
-        with open(nameDicFile, 'w') as filenameDicOut:
+        with open(nameDicFile, "w") as filenameDicOut:
             for line in nameDic:
-                filenameDicOut.write(line+'\n')
+                filenameDicOut.write(line + "\n")
         filenameDicOut.close()
 
         # funcFailedElem = ['LANG=en_US.utf8 abaqus cae noGUI="failedElem.py"']
@@ -230,7 +429,7 @@ def checkFailedElem(outPutFileFailedElem, outPutFileMorphedIVD, pathInp, pathTem
             "cae",
             "noGUI={}".format(cwd + "/sources/functions/failedElem.py"),
             "--",
-            nameDicFile
+            nameDicFile,
         ]
 
         print(funcFailedElem)
@@ -249,9 +448,9 @@ def checkFailedElem(outPutFileFailedElem, outPutFileMorphedIVD, pathInp, pathTem
     # file with the name of the inp file on the input folder that contains the number of failed elements and the gap value
     header = "NfailedElem, gap"
 
-    with open(os.path.join(pathInp, outPutFileFailedElem), 'w') as filenodesOn3dOut:
+    with open(os.path.join(pathInp, outPutFileFailedElem), "w") as filenodesOn3dOut:
         filenodesOn3dOut.write(header + "\n")
-        filenodesOn3dOut.write(str(lenFailedElem) + ',' + str(gap))
+        filenodesOn3dOut.write(str(lenFailedElem) + "," + str(gap))
 
     if lenFailedElem == 0:
         print("The .inp file doesn't have failed elements, it's ready to be simulated")
@@ -259,13 +458,14 @@ def checkFailedElem(outPutFileFailedElem, outPutFileMorphedIVD, pathInp, pathTem
     elif lenFailedElem > 0:
         print("There are " + str(lenFailedElem) + " failed elements")
         print("the morphing process for the merged file need to be repeated")
-    print('')
+    print("")
 
     return lenFailedElem
 
 
-def check_zero_volume_elements_Gmesh(fileINP, pathInp, pathTemplate, volume_threshold=0.2e-1):
-
+def check_zero_volume_elements_Gmesh(
+    fileINP, pathInp, pathTemplate, volume_threshold=0.2e-1
+):
     def calculate_tetrahedron_volume(p0, p1, p2, p3):
         """Calculate the volume of a tetrahedron given its four vertices."""
         mat = np.array([p1 - p0, p2 - p0, p3 - p0])
@@ -302,8 +502,8 @@ def check_zero_volume_elements_Gmesh(fileINP, pathInp, pathTemplate, volume_thre
     gmshFile = os.path.join(pathInp, name + ".msh")
 
     # string format
-    stringFormat = '{} {:.8f} {:.8f} {:.8f}'
-    stringFormat += '\n'
+    stringFormat = "{} {:.8f} {:.8f} {:.8f}"
+    stringFormat += "\n"
 
     with open(gmshFile, "w") as filenodesOn3dOut:
         with open(os.path.join(pathTemplate, "template_L4-L5.msh")) as f:
@@ -346,6 +546,7 @@ def check_zero_volume_elements_Gmesh(fileINP, pathInp, pathTemplate, volume_thre
 
     return lenFailedElem
 
+
 def readCoordFromFile(file, l1, l2, delM):
     # read the file .inp from the line l1 to the line l2
     # store the data in a dictionary called nodesTot
@@ -361,23 +562,34 @@ def readCoordFromFile(file, l1, l2, delM):
 
     return nodesTot, nodeOrder
 
+
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Cheking the accuracy of the morphing process
 # Hausdorff distance between 3D grids (Euclidean distance)
 
 
 def bbox(array, point, radius):
-    a = array[np.where(np.logical_and(
-        array[:, 0] >= point[0] - radius, array[:, 0] <= point[0] + radius))]
-    b = a[np.where(np.logical_and(a[:, 1] >= point[1] -
-                   radius, a[:, 1] <= point[1] + radius))]
-    c = b[np.where(np.logical_and(b[:, 2] >= point[2] -
-                   radius, b[:, 2] <= point[2] + radius))]
+    a = array[
+        np.where(
+            np.logical_and(
+                array[:, 0] >= point[0] - radius, array[:, 0] <= point[0] + radius
+            )
+        )
+    ]
+    b = a[
+        np.where(
+            np.logical_and(a[:, 1] >= point[1] - radius, a[:, 1] <= point[1] + radius)
+        )
+    ]
+    c = b[
+        np.where(
+            np.logical_and(b[:, 2] >= point[2] - radius, b[:, 2] <= point[2] + radius)
+        )
+    ]
     return c
 
 
 def hausdorff(surface_a, surface_b):
-
     # Taking two arrays as input file, the function is searching for the Hausdorff distane of "surface_a" to "surface_b"
     dists = []
 
@@ -392,7 +604,6 @@ def hausdorff(surface_a, surface_b):
         xrange = range
 
     for i in xrange(l):
-
         # walking through all the points of surface_a
         dist_min = 1000.0
         radius = 0

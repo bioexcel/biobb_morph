@@ -1,15 +1,26 @@
 
 # Biobb Morph changelog
 
+## What's new in version [5.0.0](https://github.com/bioexcel/biobb_morph/releases/tag/v5.0.0)?
+
+### Changes
+
+* [CI/CD](linting_and_testing.yml): Update set-up micromamba.
+* [CI/CD](conf.yml): Adding global properties to test yaml configuration
+* [CI/CD](linting_and_testing.yaml): Update GA test workflow to Python >3.9
+* [DOCS](.readthedocs.yaml): Updating to Python 3.9
+* [CI/CD](GITIGNORE): Update .gitignore to include the new file extensions to ignore
+* [CI/CD](conf.yml): Change test conf.yml to adapt to new settings configuration
+
 ## What's new in version [4.1.0](https://github.com/bioexcel/biobb_morph/releases/tag/v4.1.0)?
-In version 4.1.0 the dependency biobb_common has been updated to 4.1.0 version. 
+In version 4.1.0 the dependency biobb_common has been updated to 4.1.0 version.
 
 ### New features
 
 * Update to biobb_common 4.1.0 (general)
 
 ## What's new in version [3.9.0](https://github.com/bioexcel/biobb_morph/releases/tag/v3.9.0)?
-In version 3.9.0 the dependency biobb_common has been updated to 3.9.0 version. 
+In version 3.9.0 the dependency biobb_common has been updated to 3.9.0 version.
 
 ### New features
 
@@ -17,14 +28,14 @@ In version 3.9.0 the dependency biobb_common has been updated to 3.9.0 version.
 * Version adapted to BioBB's notation (3.9.0)
 
 ## What's new in version [4.0.0](https://github.com/bioexcel/biobb_morph/releases/tag/v4.0.0)?
-In version 4.0.0 the dependency biobb_common has been updated to 3.8.1 version. 
+In version 4.0.0 the dependency biobb_common has been updated to 3.8.1 version.
 
 ### New features
 
 * Update to biobb_common 3.8.1 (general)
 
 ## What's new in version [3.0.0](https://github.com/bioexcel/biobb_morph/releases/tag/v3.0.0)?
-In version 3.0.0 the dependency biobb_common has been updated to 3.7.0 version. 
+In version 3.0.0 the dependency biobb_common has been updated to 3.7.0 version.
 
 ### New features
 

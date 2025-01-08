@@ -1,2 +1,4 @@
+from . import morph
+
 name = "morph"
-__all__ = ["morph", "common", "failedElem", "createTZ", "morphFunctions"]
+__all__ = ["morph"]

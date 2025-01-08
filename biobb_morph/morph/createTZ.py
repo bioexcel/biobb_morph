@@ -28,20 +28,19 @@
 
 # libraries
 from __future__ import print_function
-import os
-import argparse
-import csv
-import numpy as np
-from stl import mesh
-import trimesh
-import numpy.linalg as la
-import matplotlib.pyplot as plt
-from matplotlib.path import Path
-import cv2
-from sklearn.cluster import DBSCAN
-from scipy.interpolate import splprep, splev
-from scipy.spatial import ConvexHull
+
 import copy
+import csv
+import os
+import pathlib
+
+import numpy as np
+import numpy.linalg as la
+import trimesh
+from matplotlib.path import Path
+from scipy.interpolate import splev, splprep
+from scipy.spatial import ConvexHull
+from stl import mesh
 
 ###
 
@@ -416,9 +415,10 @@ def rotation_matrix_from_vectors(vec1, vec2):
     :param vec2: A 3d "destination" vector
     :return mat: A transform matrix (3x3) which when applied to vec1, aligns it with vec2.
     """
-    a, b = (vec1 / np.linalg.norm(vec1)).reshape(3), (
-        vec2 / np.linalg.norm(vec2)
-    ).reshape(3)
+    a, b = (
+        (vec1 / np.linalg.norm(vec1)).reshape(3),
+        (vec2 / np.linalg.norm(vec2)).reshape(3),
+    )
     v = np.cross(a, b)
     c = np.dot(a, b)
     s = np.linalg.norm(v)
@@ -670,7 +670,7 @@ def procedure(
 def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     # read the fileIn
     # first line is fileAF and second line is fileNP
-    with open(fileIn, 'r') as f:
+    with open(fileIn, "r") as f:
         fileAF = f.readline().strip()
         fileNP = f.readline().strip()
 
@@ -681,8 +681,11 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     fileAF = os.path.join(pathFiles, fileAF)
     fileNP = os.path.join(pathFiles, fileNP)
 
-    filenameAF = fileAF.split(".")[0]
-    filenameNP = fileNP.split(".")[0]
+    print("fileAF: ", fileAF)
+
+    filenameAF = str(pathlib.Path(fileAF).stem)
+    print("filenameAF: ", filenameAF)
+    filenameNP = str(pathlib.Path(fileNP).stem)
 
     # get the numberIVD
     numberIVD = filenameAF.split("_")[1]
@@ -799,7 +802,6 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     success = False
     while not success:
         try:
-
             (
                 nodesAF,
                 nodesNP,
@@ -822,7 +824,6 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
             success = True  # If procedure() completes without raising an exception
 
         except:
-
             reduce_param -= 0.1
 
             print("**EXCEPTION**")
@@ -883,7 +884,6 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     success = False
     while not success:
         try:
-
             (
                 nodesAF,
                 nodesNP,
@@ -906,7 +906,6 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
             success = True  # If procedure() completes without raising an exception
 
         except:
-
             reduce_param -= 0.1
 
             print("**EXCEPTION**")
@@ -1019,14 +1018,17 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     if not os.path.exists(resultPath):
         os.makedirs(resultPath)
 
+    print("resultPath: ", resultPath)
+    print("fileAF_out: ", fileAF_out)
+
     # x,y,z
-    with open(os.path.join(resultPath, fileAF_out), 'w') as f:
+    with open(os.path.join(resultPath, fileAF_out), "w") as f:
         writer = csv.writer(f)
         writer.writerows(nodesAF)
-    with open(os.path.join(resultPath, fileNP_out), 'w') as f:
+    with open(os.path.join(resultPath, fileNP_out), "w") as f:
         writer = csv.writer(f)
         writer.writerows(nodesNP)
-    with open(os.path.join(resultPath, fileToRid_out), 'w') as f:
+    with open(os.path.join(resultPath, fileToRid_out), "w") as f:
         writer = csv.writer(f)
         writer.writerows(nodesToRid)
 
@@ -1034,7 +1036,7 @@ def mainProgramTZ(fileIn, nodeDistance, moveTo, movement, plane, reduce_param):
     # fileAF_out
     # fileNP_out
     # fileToRid_out
-    with open(os.path.join(resultPath, fileInfo), 'w') as f:
+    with open(os.path.join(resultPath, fileInfo), "w") as f:
         f.write(fileAF_out + "\n")
         f.write(fileNP_out + "\n")
         f.write(fileToRid_out + "\n")

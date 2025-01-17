@@ -92,7 +92,9 @@ def morph(
 
     # -------------------------------------------------------------------------------------------------------------------------------------------------------------------
     # Morphing Process
-
+    print("\n" * 10)
+    print(f"{os.getcwd()}")
+    print("\n" * 10)
     # define file name, path, disc, and patient id
     pathFile = os.path.dirname(fileIn)  # file directory
     baseName = os.path.basename(fileIn)  # file basename

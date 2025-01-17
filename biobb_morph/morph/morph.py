@@ -207,7 +207,9 @@ class Morph(BiobbObject):
             f"results zip file: {self.stage_io_dict['out']['output_morphed_zip_path']}",
             self.out_log,
         )
-        fu.zip_list(self.stage_io_dict["out"]["output_morphed_zip"], [results_path])
+        fu.zip_list(
+            self.stage_io_dict["out"]["output_morphed_zip_path"], [results_path]
+        )
 
         # Copy files to host
         self.copy_to_host()

@@ -22,11 +22,10 @@ class Morph(BiobbObject):
     | The Morph class is designed for the production of 3DSpine meshes, from a template IVD mesh to a target, patient-personalized model. It supports various non-rigid registration modes and morphing operations to achieve optimal mesh alignment and transformation.
 
     Args:
-        input_AF_stl_path (str): Description for the first input file path. File type: input. `Sample file <https://urlto.sample>`_. Accepted formats: top (edam:format_3881).
-        input_NP_stl_path (str): Description for the first input file path. File type: input. `Sample file <https://urlto.sample>`_. Accepted formats: top (edam:format_3881).
-        sources_path (str) (Optional): Description for the second input file path (optional). File type: input. `Sample file <https://urlto.sample>`_. Accepted formats: dcd (edam:format_3878).
-        output_morphd_zip_path (str): Description for the output file path. File type: output. `Sample file <https://urlto.sample>`_. Accepted formats: zip (edam:format_3987).
-        output_lambdaBeta_csv_path (str) (Optional): Description for the output file path. File type: output. `Sample file <https://urlto.sample>`_. Accepted formats: zip (edam:format_3987).
+        input_AF_stl_path (str): Path to the AF stl input file path. File type: input. `Sample file <https://github.com/bioexcel/biobb_morph/blob/baac08889094d194f898c619ae661510f8cbd498/biobb_morph/test/data/morph/IVD_L2L3_AF_NC0031.stl>`_. Accepted formats: stl (edam:format_3993).
+        input_NP_stl_path (str): Path to the NP stl input file path. File type: input. `Sample file <https://github.com/bioexcel/biobb_morph/blob/baac08889094d194f898c619ae661510f8cbd498/biobb_morph/test/data/morph/IVD_L2L3_NP_NC0031.stl>`_. Accepted formats: stl (edam:format_3993).
+        input_lambdaBeta_csv_path (str) (Optional): Path to the csv lambdaBeta input file path. File type: input. `Sample file <https://raw.githubusercontent.com/bioexcel/biobb_morph/refs/heads/master/biobb_morph/sources/lambdaBeta.csv>`_. Accepted formats: csv (edam:format_3752).
+        output_morphed_zip_path (str): Path to the output morphed zip file path. File type: output. `Sample file <https://urlto.sample>`_. Accepted formats: zip (edam:format_3987).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **morph** (*int*) - (5) Non-Rigid registration mode. Options: 1: AF, 2: NP, 3: NoBEP, 4: CEPmorph, 5: All, 0: NONE.
             * **toINP** (*int*) - (4) Create the .inp file for specific components. Options: 1: AF, 2: NP, 3: NoBEP, 4: All, 0: NONE.
@@ -53,12 +52,11 @@ class Morph(BiobbObject):
             from biobb_morph.morph.morph import morph
 
             prop = {
-                'boolean_property': True
+                'morph: 5
             }
-            morph(input_file_path1='/path/to/myTopology.top',
-                  sources_path='/path/to/newCompressedFile.zip',
-                  output_morphd_zip_path='/path/to/mytrajectory.dcd',
-                  output_lambdaBeta_csv_path='/path/to/mytrajectory.dcd',
+            morph(input_AF_stl_path='/path/to/AF.stl',
+                  input_NP_stl_path='/path/to/NP.stl',
+                  output_morphd_zip_path='/path/to/morphed.zip',
                   properties=prop)
 
     Info:

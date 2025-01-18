@@ -25,7 +25,7 @@ class Morph(BiobbObject):
         input_AF_stl_path (str): Path to the AF stl input file path. File type: input. `Sample file <https://github.com/bioexcel/biobb_morph/blob/baac08889094d194f898c619ae661510f8cbd498/biobb_morph/test/data/morph/IVD_L2L3_AF_NC0031.stl>`_. Accepted formats: stl (edam:format_3993).
         input_NP_stl_path (str): Path to the NP stl input file path. File type: input. `Sample file <https://github.com/bioexcel/biobb_morph/blob/baac08889094d194f898c619ae661510f8cbd498/biobb_morph/test/data/morph/IVD_L2L3_NP_NC0031.stl>`_. Accepted formats: stl (edam:format_3993).
         input_lambdaBeta_csv_path (str) (Optional): Path to the csv lambdaBeta input file path. File type: input. `Sample file <https://raw.githubusercontent.com/bioexcel/biobb_morph/refs/heads/master/biobb_morph/sources/lambdaBeta.csv>`_. Accepted formats: csv (edam:format_3752).
-        output_morphed_zip_path (str): Path to the output morphed zip file path. File type: output. `Sample file <https://urlto.sample>`_. Accepted formats: zip (edam:format_3987).
+        output_morphed_zip_path (str): Path to the output morphed zip file path. File type: output. `Sample file <https://urlto.sample>`_. Accepted formats: zip (edam:format_3752).
         properties (dict - Python dictionary object containing the tool parameters, not input/output files):
             * **morph** (*int*) - (5) Non-Rigid registration mode. Options: 1: AF, 2: NP, 3: NoBEP, 4: CEPmorph, 5: All, 0: NONE.
             * **toINP** (*int*) - (4) Create the .inp file for specific components. Options: 1: AF, 2: NP, 3: NoBEP, 4: All, 0: NONE.

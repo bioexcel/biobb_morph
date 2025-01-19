@@ -3,7 +3,7 @@
 [![](https://img.shields.io/conda/vn/bioconda/biobb_morph?label=Conda)](https://anaconda.org/bioconda/biobb_morph)
 [![](https://img.shields.io/conda/dn/bioconda/biobb_morph?label=Conda%20Downloads)](https://anaconda.org/bioconda/biobb_morph)
 [![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_morph?tab=tags)
-[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_morph:5.0.0--pyhad2cae4_0)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_morph:5.0.0--pyhd7d9b99_0)
 
 [![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_morph)
 [![](https://img.shields.io/pypi/pyversions/biobb-morph.svg?label=Python%20Versions)](https://pypi.org/project/biobb-morph/)
@@ -71,13 +71,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_morph:5.0.0--pyhad2cae4_0
+        docker pull quay.io/biocontainers/biobb_morph:5.0.0--pyhd7d9b99_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_morph:5.0.0--pyhad2cae4_0 <command>
+        docker run quay.io/biocontainers/biobb_morph:5.0.0--pyhd7d9b99_0 <command>
 
 
 Using SINGULARITY:
@@ -87,7 +87,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_morph.sif https://depot.galaxyproject.org/singularity/biobb_morph:5.0.0--pyhad2cae4_0
+        singularity pull --name biobb_morph.sif https://depot.galaxyproject.org/singularity/biobb_morph:5.0.0--pyhd7d9b99_0
 
 
 * Usage:

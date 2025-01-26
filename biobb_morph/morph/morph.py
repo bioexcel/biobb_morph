@@ -2,7 +2,6 @@
 
 # Module from BioBB basics
 import argparse
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -84,11 +83,7 @@ class Morph(BiobbObject):
         super().__init__(properties)
         self.locals_var_dict = locals().copy()
 
-        self.sources_path = str(
-            Path(os.getenv("CONDA_PREFIX", ""))
-            .joinpath("morph_sources")
-            .joinpath("sources")
-        )
+        self.sources_path = str(Path(__file__).resolve().parents[1].joinpath("sources"))
         input_lambdaBeta_csv_path = input_lambdaBeta_csv_path or str(
             Path(self.sources_path).joinpath("lambdaBeta.csv")
         )

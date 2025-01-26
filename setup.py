@@ -33,7 +33,7 @@ setuptools.setup(
         "Rtree",
     ],
     python_requires=">=3.9",
-    entry_points={"console_scripts": ["morph = biobb_morph.biobb_morph.morph:main"]},
+    entry_points={"console_scripts": ["morph = biobb_morph.morph.morph:main"]},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3.9",

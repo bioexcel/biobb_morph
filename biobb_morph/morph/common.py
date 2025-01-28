@@ -556,27 +556,27 @@ def morph(
     nodesOnSurfaceNPMiddleLower = list()
     nodesOnSurfaceIVDColumn = list()
 
-    with open(os.path.join(pathNodes, "nodesCEPupper.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPUpper.txt"), "r") as f:
         for row in f:
             nodesCEPupper.append(int(row))
 
-    with open(os.path.join(pathNodes, "nodesCEPupper_up.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPUpper_up.txt"), "r") as f:
         for row in f:
             nodesCEPupper_up.append(int(row))
 
-    with open(os.path.join(pathNodes, "nodesCEPupper_down.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPUpper_down.txt"), "r") as f:
         for row in f:
             nodesCEPupper_down.append(int(row))
 
-    with open(os.path.join(pathNodes, "nodesCEPlower.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPLower.txt"), "r") as f:
         for row in f:
             nodesCEPlower.append(int(row))
 
-    with open(os.path.join(pathNodes, "nodesCEPlower_up.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPLower_up.txt"), "r") as f:
         for row in f:
             nodesCEPlower_up.append(int(row))
 
-    with open(os.path.join(pathNodes, "nodesCEPlower_down.txt"), "r") as f:
+    with open(os.path.join(pathNodes, "nodesCEPLower_down.txt"), "r") as f:
         for row in f:
             nodesCEPlower_down.append(int(row))
 

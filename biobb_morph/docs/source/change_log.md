@@ -1,6 +1,14 @@
 
 # Biobb Morph changelog
 
+## What's new in version [5.0.2](https://github.com/bioexcel/biobb_morph/releases/tag/v5.0.2)?
+
+### Changes
+
+* [common.py](common.py): Updating names of *nodes/* files to be consistent with _conda_.
+* [DOCS](readthedocs.yaml): Updating to Python 3.10.
+
+
 ## What's new in version [5.0.1](https://github.com/bioexcel/biobb_morph/releases/tag/v5.0.1)?
 
 ### Changes

@@ -3,7 +3,7 @@
 [![](https://img.shields.io/conda/vn/bioconda/biobb_morph?label=Conda)](https://anaconda.org/bioconda/biobb_morph)
 [![](https://img.shields.io/conda/dn/bioconda/biobb_morph?label=Conda%20Downloads)](https://anaconda.org/bioconda/biobb_morph)
 [![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_morph?tab=tags)
-[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_morph%3A5.0.1--pyhd7d9b99_0)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_morph%3A5.0.2--pyhd7d9b99_0)
 [![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_morph)
 [![](https://img.shields.io/pypi/pyversions/biobb-morph.svg?label=Python%20Versions)](https://pypi.org/project/biobb-morph/)
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -40,7 +40,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb-morph.readthedocs.io/en/latest/).
 
 ## Version
-v5.0.1 2024.2
+v5.0.2 2025.1
 
 ### Installation
 Using PIP:
@@ -50,7 +50,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_morph>=5.0.1"
+        pip install "biobb_morph>=5.0.2"
 
 
 * Usage: [Python API documentation](https://biobb-morph.readthedocs.io/en/latest/modules.html)
@@ -60,7 +60,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_morph>=5.0.1"
+        conda install -c bioconda "biobb_morph>=5.0.2"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-morph.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-morph.readthedocs.io/en/latest/command_line.html)
@@ -70,13 +70,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_morph:5.0.1--pyhd7d9b99_0
+        docker pull quay.io/biocontainers/biobb_morph:5.0.2--pyhd7d9b99_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_morph:5.0.1--pyhd7d9b99_0 <command>
+        docker run quay.io/biocontainers/biobb_morph:5.0.2--pyhd7d9b99_0 <command>
 
 
 Using SINGULARITY:
@@ -86,7 +86,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_morph.sif https://depot.galaxyproject.org/singularity/biobb_morph:5.0.1--pyhd7d9b99_0
+        singularity pull --name biobb_morph.sif https://depot.galaxyproject.org/singularity/biobb_morph:5.0.2--pyhd7d9b99_0
 
 
 * Usage:
